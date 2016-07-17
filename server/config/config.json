@@ -1,0 +1,10 @@
+{
+  "development": {
+    "port": 3000,
+    "static": "./../front/build"
+  },
+  "production": {
+    "port": 80,
+    "static": "./../front/build"
+  }
+}

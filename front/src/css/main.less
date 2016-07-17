@@ -1,0 +1,122 @@
+@base-color: #16a085;
+@base-font: 'Helvetica', sans-serif;
+@import "video";
+@import "home";
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: @base-font;
+  box-sizing: border-box;
+}
+body, html {
+  height: 100%;
+  font-family: @base-font;
+  color: #333333;
+  background: #f7f7f7;
+}
+
+p {
+  color: #666;
+}
+header {
+  text-align: center;
+  vertical-align: middle;
+  padding: 15px;
+  width: 80%;
+  margin: 0 auto;
+  font-size: 0;
+  line-height: 0;
+
+  & > * {
+    display: inline-block;
+    vertical-align: middle;
+  }
+
+  h2 {
+    width: 200px;
+    margin: 0 20px;
+    font-size: 24px;
+    line-height: 30px;
+
+    span {
+      color: #00BCD4;
+    }
+  }
+
+  ul {
+    width: 120px;
+    vertical-align: middle;
+  }
+
+  .colors {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    text-align: center;
+
+    li {
+      list-style-type: none;
+      display: inline-block;
+      height: 20px;
+      width: 8px;
+      background: #000;
+      margin: 0 4px;
+      border-radius: 2px;
+
+    }
+    .red {background: #F44336;}
+    .indigo {background: #303F9F;}
+    .green {background: #4CAF50;}
+    .orange {background: #FF9800;}
+    .pink {background: #FF4081;}
+    .blue {background: #2196F3;}
+    .light-green {background: #8BC34A;}
+    .deep-orange {background: #FF5722;}
+    .light-blue {background: #03A9F4;}
+    .lime {background: #CDDC39;}
+    .brown {background: #795548;}
+    .purple {background: #9C27B0;}
+    .cyan {background: #00BCD4;}
+    .yellow {background: #FFEB3B;}
+    .grey {background: #9E9E9E;}
+    .deep-purple {background: #673AB7;}
+    .teal {background: #009688;}
+    .amber {background: #FFC107;}
+    .blue-grey {background: #607D8B;}
+  }
+
+}
+nav {
+  width: 80%;
+  text-align: center;
+  margin: 0 auto;
+  padding: 20px 0;
+  border-top: 1px solid #aaa;
+  border-bottom: 1px solid #aaa;;
+
+  a {
+    display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin: 0 20px;
+    font-size: 12px;
+    color: #fff;
+    background: #9E9E9E;
+    border-radius: 3px;
+    padding: 3px 5px;
+
+    &:hover {
+      background: darken(#9E9E9E, 20%);
+    }
+
+    &.active {
+      background: #009688;
+    }
+  }
+
+}
+.content {
+  width: 80%;
+  margin: 20px auto 0 auto;
+}

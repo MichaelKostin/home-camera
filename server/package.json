@@ -1,0 +1,23 @@
+{
+  "name": "server-home-camera",
+  "version": "0.0.1",
+  "description": "Motion detection system for pets",
+  "main": "app.js",
+  "repository": "http://github.com/karnelius/conversation",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Michael Kostin <michael.fon.kostin@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "jscs": "^2.11.0"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "morgan": "^1.7.0",
+    "ws": "^1.0.1"
+  }
+}

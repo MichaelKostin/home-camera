@@ -1,0 +1,40 @@
+#home {
+  button#start {
+    display: block;
+    border: none;
+    outline: none;
+    background: #4CAF50;
+    width: 220px;
+    height: 60px;
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
+    margin: 140px auto 0 auto;
+    font-size: 22px;
+    border-radius: 3px;
+    position: relative;
+    text-transform: uppercase;
+
+    &:hover {
+        background: darken(#4CAF50, 10%);
+    }
+
+    &:active {
+      background: darken(#4CAF50, 20%);
+    }
+
+    &:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      width: 0;
+      height: 0;
+      border-left: 20px solid #fff;
+      border-top: 12px solid transparent;
+      border-bottom: 12px solid transparent;
+      border-radius: 2px;
+    }
+  }
+}
