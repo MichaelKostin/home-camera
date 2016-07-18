@@ -3,10 +3,13 @@
   "version": "0.0.1",
   "description": "Motion detection system for pets",
   "main": "app.js",
-  "repository": "http://github.com/karnelius/conversation",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MichaelKostin/home-camera.git"
   },
   "author": "Michael Kostin <michael.fon.kostin@gmail.com>",
   "license": "MIT",
