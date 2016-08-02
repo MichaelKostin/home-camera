@@ -28,4 +28,4 @@ const mediaService = {
   }
 };
 
-module.exports = mediaService;
+export default mediaService;
