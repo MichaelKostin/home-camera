@@ -43,7 +43,15 @@ export function addStream() {
 }
 
 export function destroyStream() {
-  return {
-    type: DESTROY_STREAM
+  return (dispatch, getState) => {
+    const streams = getState().streams;
+    streams.forEach((stream) => {
+      //TODO: Check with two cams.
+      stream.getVideoTracks()[0].stop();
+    });
+
+    dispatch({
+      type: DESTROY_STREAM
+    })
   };
 }

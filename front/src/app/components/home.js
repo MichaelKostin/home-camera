@@ -3,7 +3,7 @@ import React from 'react';
 import { Component } from 'react';
 import startShowing from '../services/video-stream.service';
 import store from '../store';
-import { addStream, playVideo, stopVideo } from '../actions';
+import { addStream, destroyStream } from '../actions';
 
 const StartButton = ({collback})=> (
   <div>
@@ -38,7 +38,7 @@ export default class HomePage extends React.Component {
   }
 
   componentWillUnmount() {
-    //this.state.stream.getVideoTracks()[0].stop();
+    store.dispatch(destroyStream());
   }
 
   render() {
