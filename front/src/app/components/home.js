@@ -38,7 +38,9 @@ export default class HomePage extends React.Component {
   }
 
   componentWillUnmount() {
-    store.dispatch(destroyStream());
+    if (this.state.streams.length) {
+      store.dispatch(destroyStream());
+    }
   }
 
   render() {
