@@ -1,6 +1,7 @@
 'use strict';
 
 import { combineReducers } from 'redux';
+import { routerReducer as routing } from 'react-router-redux';
 import {
   PLAY_VIDEO,
   STOP_VIDEO,
@@ -39,4 +40,9 @@ function videoApp(state = initialState, action) {
   }
 }
 
-export default videoApp;
+const rootReducer = combineReducers({
+  videoApp,
+  routing
+});
+
+export default rootReducer;

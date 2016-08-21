@@ -14,17 +14,18 @@ const mediaService = {
     }
 
     //old versions
-    navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia ||  navigator.mozGetUserMedia;
-    if(navigator.getUserMedia) {
+    navigator.getUserMedia = navigator.getUserMedia ||
+                             navigator.webkitGetUserMedia ||
+                             navigator.mozGetUserMedia;
+    if (navigator.getUserMedia) {
 
       console.log('old version getUserMedia');
-      return new Promise(function(resolve, reject) {
+      return new Promise(function (resolve, reject) {
         navigator.getUserMedia(mediaOptions, resolve, reject);
       });
     } else {
       return Promise.reject('getUserMedia not supported');
     }
-
   }
 };
 

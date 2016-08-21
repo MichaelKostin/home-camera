@@ -1,6 +1,6 @@
 'use strict';
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Component } from 'react';
 import { Link, IndexLink } from 'react-router';
 
@@ -8,11 +8,7 @@ const active = {
   background: '#009688'
 };
 
-
-export default class App extends React.Component {
-
-  render() {
-    return (
+const App = ({ children })=> (
       <div>
         <header>
           <ul className="colors">
@@ -37,17 +33,21 @@ export default class App extends React.Component {
         </header>
         <nav>
           <IndexLink activeStyle={active} to="/">home</IndexLink>
-          <Link activeStyle={active} to="images">images</Link>
-          <Link activeStyle={active} to="videos">videos</Link>
+          <Link activeStyle={active} to="/images">images</Link>
+          <Link activeStyle={active} to="/videos">videos</Link>
         </nav>
         <div className="content">
-          {this.props.children}
+          { children }
         </div>
 
         <footer>
 
         </footer>
       </div>
-    )
-  }
+);
+
+App.PropTypes =  {
+  children: PropTypes.node.isRequired
 };
+
+export default App;

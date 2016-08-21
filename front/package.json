@@ -37,6 +37,7 @@
     "gulp-sourcemaps": "^1.6.0",
     "gulp-streamify": "^1.0.2",
     "gulp-uglify": "^1.5.4",
+    "react-router-redux": "^4.0.5",
     "vinyl-source-stream": "^1.1.0"
   }
 }

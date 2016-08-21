@@ -2,10 +2,9 @@
 import React from 'react';
 import { Component } from 'react';
 import startShowing from '../services/video-stream.service';
-import store from '../store';
 import { addStream, destroyStream } from '../actions';
 
-const StartButton = ({collback})=> (
+const StartButton = ({ collback })=> (
   <div>
     <p>Press "start" for playing video stream. Allow camera access for the site</p>
     <button id="start" onClick={collback}>Start</button>
@@ -23,7 +22,7 @@ const Video = ()=> (
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
+    this.state = { streams: [], dispatch: a=> a };
     this.playVideo = this.playVideo.bind(this);
   }
 
@@ -48,7 +47,11 @@ export default class HomePage extends React.Component {
       <div id="home">
         {this.state.streams.length ? (
           <div>
-            <video ref="video" autoPlay src={window.URL.createObjectURL(this.state.streams[0])} id="video"></video>
+            <video
+              ref="video"
+              autoPlay src={window.URL.createObjectURL(this.state.streams[0])}
+              id="video"
+            ></video>
             <canvas id="draw"></canvas>
             <canvas className="hidden"></canvas>
           </div>
@@ -57,6 +60,6 @@ export default class HomePage extends React.Component {
           <button id="start" onClick={this.playVideo}>Start</button>
         </div>)}
       </div>
-    )
+    );
   }
 };
