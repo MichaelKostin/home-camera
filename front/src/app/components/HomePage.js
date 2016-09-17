@@ -1,65 +1,67 @@
 'use strict';
-import React from 'react';
-import { Component } from 'react';
+
+import React, { Component, PropTypes } from 'react';
 import startShowing from '../services/video-stream.service';
 import { addStream, destroyStream } from '../actions';
-
-const StartButton = ({ collback })=> (
-  <div>
-    <p>Press "start" for playing video stream. Allow camera access for the site</p>
-    <button id="start" onClick={collback}>Start</button>
-  </div>
-);
-
-const Video = ()=> (
-  <div>
-    <video ref="video" id="video"></video>
-    <canvas id="draw"></canvas>
-    <canvas className="hidden"></canvas>
-  </div>
-);
 
 export default class HomePage extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { streams: [], dispatch: a=> a };
-    this.playVideo = this.playVideo.bind(this);
+    this.takePhoto = this.takePhoto.bind(this);
   }
 
-  playVideo(e) {
-    this.setState({
-      videoStream: true
-    });
-    store.dispatch(addStream())
-      .then(() => {
-        this.setState(store.getState());
-      });
+  takePhoto() {
+    this.props.takePhoto(this.refs.video, this.refs.canv);
   }
 
   componentWillUnmount() {
-    if (this.state.streams.length) {
-      store.dispatch(destroyStream());
+    if (this.props.streams.length) {
+      this.props.destroyStream();
     }
+
   }
 
   render() {
     return (
       <div id="home">
-        {this.state.streams.length ? (
+        {this.props.streams.length ? (
           <div>
+            <button onClick={this.props.destroyStream}>close</button>
+            <button onClick={this.takePhoto}>screenshot</button>
             <video
               ref="video"
-              autoPlay src={window.URL.createObjectURL(this.state.streams[0])}
+              width={this.props.size.width}
+              height={this.props.size.height}
+              autoPlay
+              src={window.URL.createObjectURL(this.props.streams[0])}
               id="video"
-            ></video>
-            <canvas id="draw"></canvas>
-            <canvas className="hidden"></canvas>
+            />
+            <canvas
+              ref="canv"
+              width={this.props.size.width}
+              height={this.props.size.height}
+              style={{ visibility: 'hidden', postion: 'absolute' }}
+            />
           </div>
         ) : (<div>
           <p>Press "start" for playing video stream. Allow camera access for the site</p>
-          <button id="start" onClick={this.playVideo}>Start</button>
+          <button id="start" onClick={this.props.addStream}>Start</button>
         </div>)}
+
+        {
+          this.props.images.length ? (
+            this.props.images.map((img, index)=> (<img key={ index } src={ img } />))
+          ) : 'no images'
+        }
       </div>
     );
   }
+};
+
+HomePage.propTypes = {
+  addStream: PropTypes.func.isRequired,
+  streams: PropTypes.array.isRequired,
+  images: PropTypes.array.isRequired,
+  takePhoto: PropTypes.func.isRequired,
+  size: PropTypes.object.isRequired
 };

@@ -6,7 +6,8 @@ import {
   STOP_VIDEO,
   SET_VIDEO_SIZE,
   ADD_STREAM,
-  DESTROY_STREAM
+  DESTROY_STREAM,
+  ADD_IMAGE
 } from '../constants/action.constants';
 
 export function playVideo() {
@@ -34,7 +35,7 @@ export function addStream() {
   return (dispatch) => {
     return new mediaStream()
       .then((stream) => {
-        return dispatch( {
+        return dispatch({
           type: ADD_STREAM,
           stream
         });
@@ -44,7 +45,7 @@ export function addStream() {
 
 export function destroyStream() {
   return (dispatch, getState) => {
-    const streams = getState().streams;
+    const streams = getState().videoApp.streams;
     streams.forEach((stream) => {
       //TODO: Check with two cams.
       stream.getVideoTracks()[0].stop();
@@ -52,6 +53,18 @@ export function destroyStream() {
 
     dispatch({
       type: DESTROY_STREAM
-    })
+    });
+  };
+}
+
+export function takePhoto(video, canvas) {
+  return (dispatch) => {
+    canvas
+      .getContext('2d')
+      .drawImage(video, 0, 0, canvas.width, canvas.height);
+    dispatch({
+      type: ADD_IMAGE,
+      photo: canvas.toDataURL('image/png')
+    });
   };
 }

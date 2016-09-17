@@ -6,3 +6,4 @@ export const SET_VIDEO_SIZE = 'SET_VIDEO_SIZE';
 export const ADD_STREAM = 'ADD_STREAM';
 export const DESTROY_STREAM = 'DESTROY_STREAM';
 export const FETCH_VIDEO = 'FETCH_VIDEO';
+export const ADD_IMAGE = 'ADD_IMAGE';

@@ -7,7 +7,8 @@ import {
   STOP_VIDEO,
   SET_VIDEO_SIZE,
   ADD_STREAM,
-  DESTROY_STREAM
+  DESTROY_STREAM,
+  ADD_IMAGE
 } from '../constants/action.constants';
 
 const initialState = {
@@ -28,13 +29,15 @@ function videoApp(state = initialState, action) {
     break;
     case STOP_VIDEO:
       return Object.assign({}, state, { videoStream: false });
-      break;
+    break;
     case ADD_STREAM:
-      return Object.assign({}, state, { streams: [ ...state.streams, action.stream] });
-      break;
+      return Object.assign({}, state, { streams: [...state.streams, action.stream] });
+    break;
     case DESTROY_STREAM:
       return Object.assign({}, state, { streams: [] });
-      break;
+    break;
+    case ADD_IMAGE:
+      return Object.assign({}, state, { photos: [...state.photos, action.photo] });
     default:
       return state;
   }

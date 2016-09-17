@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
-import Home from './components/HomePage';
+import connectedHomePage from './containers/HomePage';
 import App from './components/App';
 import VideosPage from './components/VideosPage';
 import ImagesPage from './components/ImagesPage';
@@ -14,7 +14,7 @@ import { createHashHistory } from 'history';
 
 export default (
       <Route path="/" component={App}>
-        <IndexRoute component={Home}/>
+        <IndexRoute component={connectedHomePage}/>
         <Route path="videos" component={VideosPage}/>
         <Route path="images" component={ImagesPage}/>
         <Route path="*" component={NotFound}/>
