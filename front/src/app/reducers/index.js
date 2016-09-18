@@ -2,6 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { routerReducer as routing } from 'react-router-redux';
+import { VGA } from '../constants/app.constants';
 import {
   PLAY_VIDEO,
   STOP_VIDEO,
@@ -14,7 +15,7 @@ import {
 const initialState = {
   streams: [],
   streamIsFetching: false,
-  size: { width: 320, height: 240 },
+  size: VGA,
   motionDetection: false,
   photos: [],
   videos: [],
@@ -38,6 +39,10 @@ function videoApp(state = initialState, action) {
     break;
     case ADD_IMAGE:
       return Object.assign({}, state, { photos: [...state.photos, action.photo] });
+    break;
+    case SET_VIDEO_SIZE:
+      return Object.assign({}, state, { size: action.size });
+    break;
     default:
       return state;
   }

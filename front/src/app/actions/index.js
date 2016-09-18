@@ -1,6 +1,7 @@
 'use strict';
 
 import mediaStream from '../services/video-stream.service';
+import { Photo } from '../classes';
 import {
   PLAY_VIDEO,
   STOP_VIDEO,
@@ -24,16 +25,28 @@ export function stopVideo() {
 }
 
 export function setVideoSize(size) {
-  return {
-    type: SET_VIDEO_SIZE,
-    size
+  return (dispatch, getState) => {
+    const streams = getState().videoApp.streams;
+    dispatch({
+      type: SET_VIDEO_SIZE,
+      size
+    });
+    if (streams.length) {
+      console.log('hey')
+      dispatch(addStream());
+    }
   };
 }
 
 export function addStream() {
 
-  return (dispatch) => {
-    return new mediaStream()
+  return (dispatch, getState) => {
+    const size = getState().videoApp.size;
+    if (getState().videoApp.streams.length) {
+      dispatch(destroyStream());
+    }
+
+    return new mediaStream({ size })
       .then((stream) => {
         return dispatch({
           type: ADD_STREAM,
@@ -47,8 +60,9 @@ export function destroyStream() {
   return (dispatch, getState) => {
     const streams = getState().videoApp.streams;
     streams.forEach((stream) => {
-      //TODO: Check with two cams.
-      stream.getVideoTracks()[0].stop();
+      stream.getTracks().forEach((track)=> {
+        track.stop();
+      });
     });
 
     dispatch({
@@ -59,12 +73,9 @@ export function destroyStream() {
 
 export function takePhoto(video, canvas) {
   return (dispatch) => {
-    canvas
-      .getContext('2d')
-      .drawImage(video, 0, 0, canvas.width, canvas.height);
     dispatch({
       type: ADD_IMAGE,
-      photo: canvas.toDataURL('image/png')
+      photo: new Photo(video, canvas)
     });
   };
 }
