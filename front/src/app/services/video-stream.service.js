@@ -1,11 +1,16 @@
 'use strict';
 
-import mediaService from './media.service';
+import 'webrtc-adapter';
 
 export default function mediaStream(options) {
-  return mediaService.getUserMedia({ audio: false, video: true })
+  return navigator.mediaDevices.getUserMedia({
+    audio: false, video:  {
+      width: { exact: options.size.width },
+      height: { exact: options.size.height }
+    }
+  })
     .then((stream)=> stream)
     .catch((err)=> {
-      console.log('The following error occurred: ', err);
+      throw new Error(err);
     });
 };
