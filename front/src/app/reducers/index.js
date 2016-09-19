@@ -22,8 +22,9 @@ const initialState = {
   videoStream: false
 };
 
-function videoApp(state = initialState, action) {
+function app(state = initialState, action) {
 
+  //Should be divided
   switch (action.type) {
     case PLAY_VIDEO:
       return Object.assign({}, state, { videoStream: true });
@@ -49,7 +50,7 @@ function videoApp(state = initialState, action) {
 }
 
 const rootReducer = combineReducers({
-  videoApp,
+  app,
   routing
 });
 

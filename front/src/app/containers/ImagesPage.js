@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import ImagesPage from '../components/ImagesPage';
 
 const mapStateToProps = (state) => ({
-  images: state.videoApp.photos
+  images: state.app.photos
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  openImage: () => {console.log('openImage');},
-  deleteImage: () => {console.log('deleteImage');}
+  openImage: () => console.log('openImage'),
+  deleteImage: () => console.log('deleteImage')
 });
 
 const connectedImagesPage = connect(

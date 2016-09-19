@@ -5,9 +5,9 @@ import { addStream, destroyStream, takePhoto, setVideoSize } from '../actions';
 import HomePage from '../components/HomePage';
 
 const mapStateToProps = (state) => ({
-  streams: state.videoApp.streams,
-  images: state.videoApp.photos,
-  size: state.videoApp.size
+  streams: state.app.streams,
+  images: state.app.photos,
+  size: state.app.size
 });
 
 const mapDispatchToProps = (dispatch) => ({
