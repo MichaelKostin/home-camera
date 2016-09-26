@@ -9,7 +9,10 @@ import {
   SET_VIDEO_SIZE,
   ADD_STREAM,
   DESTROY_STREAM,
-  ADD_IMAGE
+  ADD_IMAGE,
+  ERROR,
+  START_MOTION_DETECTION,
+  DISPATCH_MOTION
 } from '../constants/action.constants';
 
 const initialState = {
@@ -19,7 +22,9 @@ const initialState = {
   motionDetection: false,
   photos: [],
   videos: [],
-  videoStream: false
+  videoStream: false,
+  errors: [],
+  currentMotion: []
 };
 
 function app(state = initialState, action) {
@@ -43,6 +48,15 @@ function app(state = initialState, action) {
     break;
     case SET_VIDEO_SIZE:
       return Object.assign({}, state, { size: action.size });
+    break;
+    case ERROR:
+      return Object.assign({}, state, { errors: [...state.errors, action.error] });
+    break;
+    case START_MOTION_DETECTION:
+      return Object.assign({}, state, { motionDetection: true });
+    break;
+    case DISPATCH_MOTION:
+      return Object.assign({}, state, { currentMotion: action.motion });
     break;
     default:
       return state;

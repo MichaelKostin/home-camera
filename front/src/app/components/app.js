@@ -8,29 +8,37 @@ const active = {
   background: '#009688'
 };
 
-const App = ({ children })=> (
+class Header extends React.Component {
+  render () {
+    return (
+      <header>
+        <ul className="colors">
+          <li className="indigo"></li>
+          <li className="green"></li>
+          <li className="orange"></li>
+          <li className="pink"></li>
+          <li className="blue"></li>
+          <li className="light-green"></li>
+          <li className="deep-orange"></li>
+        </ul>
+        <h2><span>H</span>ome camcorder</h2>
+        <ul className="colors">
+          <li className="deep-orange"></li>
+          <li className="light-green"></li>
+          <li className="blue"></li>
+          <li className="pink"></li>
+          <li className="orange"></li>
+          <li className="green"></li>
+          <li className="indigo"></li>
+        </ul>
+      </header>
+    );
+  }
+}
+
+const App = ({ children, errors })=> (
       <div>
-        <header>
-          <ul className="colors">
-            <li className="indigo"></li>
-            <li className="green"></li>
-            <li className="orange"></li>
-            <li className="pink"></li>
-            <li className="blue"></li>
-            <li className="light-green"></li>
-            <li className="deep-orange"></li>
-          </ul>
-          <h2><span>H</span>ome camcorder</h2>
-          <ul className="colors">
-            <li className="deep-orange"></li>
-            <li className="light-green"></li>
-            <li className="blue"></li>
-            <li className="pink"></li>
-            <li className="orange"></li>
-            <li className="green"></li>
-            <li className="indigo"></li>
-          </ul>
-        </header>
+        <Header/>
         <nav>
           <IndexLink activeStyle={active} to="/">home</IndexLink>
           <Link activeStyle={active} to="/images">images</Link>
@@ -41,7 +49,7 @@ const App = ({ children })=> (
         </div>
 
         <footer>
-
+          {errors.map((error, index) => (<div key={index} className="error"><h3>Error</h3><p>{error.message}</p></div>))}
         </footer>
       </div>
 );

@@ -1,6 +1,7 @@
 'use strict';
 
 import mediaStreamService from '../services/video-stream.service';
+import motionDetectionService from '../services/motion-detection.service';
 import { Photo } from '../classes';
 import {
   PLAY_VIDEO,
@@ -8,7 +9,10 @@ import {
   SET_VIDEO_SIZE,
   ADD_STREAM,
   DESTROY_STREAM,
-  ADD_IMAGE
+  ADD_IMAGE,
+  ERROR,
+  START_MOTION_DETECTION,
+  DISPATCH_MOTION
 } from '../constants/action.constants';
 
 export function playVideo() {
@@ -27,31 +31,42 @@ export function stopVideo() {
 export function setVideoSize(size) {
   return (dispatch, getState) => {
     const streams = getState().app.streams;
-    dispatch({
-      type: SET_VIDEO_SIZE,
-      size
-    });
+
     if (streams.length) {
-      dispatch(addStream());
+      dispatch(addStream(size))
+        .then(()=> {
+          dispatch({
+            type: SET_VIDEO_SIZE,
+            size
+          });
+        });
+    } else {
+      dispatch({
+        type: SET_VIDEO_SIZE,
+        size
+      });
     }
   };
 }
 
-export function addStream() {
+export function addStream(streamSize) {
 
   return (dispatch, getState) => {
-    const size = getState().app.size;
-    if (getState().app.streams.length) {
-      dispatch(destroyStream());
-    }
-
+    const size = streamSize || getState().app.size;
     return mediaStreamService.getUserMedia({ size })
-      .then((stream) => (
-         dispatch({
-            type: ADD_STREAM,
-            stream
-          })
-      ));
+      .then((stream) => {
+        if (getState().app.streams.length) {
+          dispatch(destroyStream());
+        }
+
+        return dispatch({
+          type: ADD_STREAM,
+          stream
+        });
+      })
+      .catch((err) => {
+        return dispatch(showError(err));
+      });
   };
 }
 
@@ -76,5 +91,30 @@ export function takePhoto(video, canvas) {
       type: ADD_IMAGE,
       photo: new Photo(video, canvas)
     });
+  };
+}
+
+export function showError(error) {
+  return {
+    type: ERROR,
+    error: {
+      message: error.message,
+      stack: error.stack
+    }
+  };
+}
+
+export function startMotionDetection(video, canvas) {
+
+  return (dispatch, getStore)=> {
+    dispatch({ type: START_MOTION_DETECTION });
+    motionDetectionService.start(video, canvas, (data)=> { dispatch(dispatchMotion(data)); });
+  };
+}
+
+export function dispatchMotion(motion) {
+  return {
+    type: DISPATCH_MOTION,
+    motion
   };
 }

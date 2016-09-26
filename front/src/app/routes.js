@@ -4,7 +4,7 @@ import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import connectedHomePage from './containers/HomePage';
 import connectedImagesPage from './containers/ImagesPage';
-import App from './components/App';
+import App from './containers/App';
 import VideosPage from './components/VideosPage';
 import ImagesPage from './components/ImagesPage';
 import NotFound from './components/NotFound';
