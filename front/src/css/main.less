@@ -120,13 +120,34 @@ nav {
   width: 80%;
   margin: 20px auto 0 auto;
 }
+.paired-buttons {
+  font-size: 0;
+  line-height: 0;
+}
+
+.center {
+  margin: 0 auto;
+  text-align: center;
+  display: inline-block;
+  width: 50%;
+  vertical-align: top;
+}
 
 button {
   margin: 5px;
   border: none;
   border-radius: 3px;
   padding: 4px;
-  background: #FF9800;
+  background: #9E9E9E;
   outline: none;
   color: #fff;
+  &.active {
+    background: #FF9800;
+    &:hover {
+      background: #FF9800;
+    }
+  }
+  &:hover {
+    background: #6b6b6b;
+  }
 }

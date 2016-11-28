@@ -8,8 +8,8 @@ const app = express();
 const WebSocketServer = require('ws').Server;
 const wss = new WebSocketServer({ port: 3001 });
 
-wss.broadcast = function(data) {
-  for(let i in this.clients) {
+wss.broadcast = function (data) {
+  for (let i in this.clients) {
     this.clients[i].send(data);
   }
 };
@@ -21,7 +21,7 @@ wss.on('connection', function connection(ws) {
     wss.broadcast(message);
   });
 
-  ws.send('something');
+  ws.send('you are connected');
 });
 
 app.use(morgan('dev'));

@@ -16,24 +16,20 @@ const streamify = require('gulp-streamify');
 
 const env = process.env.NODE_ENV || 'development';
 
-
-gulp.task('js', ()=> {
-  return browserify({
-    entries: ['src/app/index.js'],
-    debug: env === 'development'
-  })
-    .transform('babelify', { presets: ['es2015', 'react'] })
-    .bundle()
-    .on('error', handleErrors)
-    .pipe(source('index.js'))
-    .pipe(gulpif(env !== 'development', streamify(uglify())))
-    .pipe(gulp.dest('./build/js'))
-    .pipe(livereload());
-  }
+gulp.task('js', ()=> browserify({
+      entries: ['src/app/index.js'],
+      debug: env === 'development'
+    })
+      .transform('babelify', { presets: ['es2015', 'react'] })
+      .bundle()
+      .on('error', handleErrors)
+      .pipe(source('index.js'))
+      .pipe(gulpif(env !== 'development', streamify(uglify())))
+      .pipe(gulp.dest('./build/js'))
+      .pipe(livereload())
 );
 
-gulp.task('less', ()=> {
-  return gulp.src('./src/css/main.less')
+gulp.task('less', ()=> gulp.src('./src/css/main.less')
     .pipe(gulpif(env === 'development', sourcemaps.init()))
     .pipe(less())
     .on('error', handleErrors)
@@ -41,14 +37,13 @@ gulp.task('less', ()=> {
     .pipe(gulpif(env !== 'development', cssmin()))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('./build/css'))
-    .pipe(livereload());
-});
+    .pipe(livereload())
+);
 
-gulp.task('html', ()=> {
-  return gulp.src('./src/**/*.html')
-    .pipe(gulp.dest('./build'))
-    .pipe(livereload());
-});
+gulp.task('html', ()=> gulp.src('./src/**/*.html')
+  .pipe(gulp.dest('./build'))
+  .pipe(livereload())
+);
 
 gulp.task('default', ['html', 'less', 'js'], (done)=> {
   livereload.listen();

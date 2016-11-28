@@ -1,11 +1,11 @@
 #home {
-  button#start {
+  button.main-button {
     display: block;
     border: none;
     outline: none;
-    background: #4CAF50;
     width: 220px;
     height: 60px;
+    padding: 0;
     color: #fff;
     line-height: 60px;
     text-align: center;
@@ -14,6 +14,10 @@
     border-radius: 3px;
     position: relative;
     text-transform: uppercase;
+  }
+
+  button#start {
+    background: #4CAF50;
 
     &:hover {
         background: darken(#4CAF50, 10%);
@@ -37,4 +41,8 @@
       border-radius: 2px;
     }
   }
+}
+
+.video-resolutions {
+  display: inline-block;
 }

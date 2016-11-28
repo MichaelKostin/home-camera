@@ -29,30 +29,15 @@ export function stopVideo() {
 }
 
 export function setVideoSize(size) {
-  return (dispatch, getState) => {
-    const streams = getState().app.streams;
-
-    if (streams.length) {
-      dispatch(addStream(size))
-        .then(()=> {
-          dispatch({
-            type: SET_VIDEO_SIZE,
-            size
-          });
-        });
-    } else {
-      dispatch({
-        type: SET_VIDEO_SIZE,
-        size
-      });
-    }
+  return {
+    type: SET_VIDEO_SIZE,
+    size
   };
 }
 
-export function addStream(streamSize) {
-
+export function addStream() {
   return (dispatch, getState) => {
-    const size = streamSize || getState().app.size;
+    const size = getState().app.size;
     return mediaStreamService.getUserMedia({ size })
       .then((stream) => {
         if (getState().app.streams.length) {
@@ -64,9 +49,7 @@ export function addStream(streamSize) {
           stream
         });
       })
-      .catch((err) => {
-        return dispatch(showError(err));
-      });
+      .catch((err) => dispatch(showError(err)));
   };
 }
 
@@ -105,10 +88,10 @@ export function showError(error) {
 }
 
 export function startMotionDetection(video, canvas) {
-
-  return (dispatch, getStore)=> {
+  return (dispatch, getState)=> {
+    const size = getState().app.size;
     dispatch({ type: START_MOTION_DETECTION });
-    motionDetectionService.start(video, canvas, (data)=> { dispatch(dispatchMotion(data)); });
+    motionDetectionService.start(video, canvas, size, (data)=> dispatch(dispatchMotion(data)));
   };
 }
 

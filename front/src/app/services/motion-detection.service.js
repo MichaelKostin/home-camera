@@ -3,10 +3,14 @@
 let context;
 let canvas;
 let callback;
+let width;
 const motionDetectionService = {
-  start: function (video, canv, cb) {
+  active: false,
+  start: function (video, smallCanvas, size, cb) {
+    this.active = true;
     callback = cb;
-    canvas = canv;
+    canvas = smallCanvas;
+    width = size.width / 10;
     context = canvas.getContext('2d');
     window.requestAnimationFrame(motionDetectionService._draw);
   },
@@ -16,30 +20,14 @@ const motionDetectionService = {
     let imageData = context.getImageData(0, 0, canvas.width, canvas.height);
     compareFrames(imageData, callback);
 
-    window.requestAnimationFrame(motionDetectionService._draw);
+    if (motionDetectionService.active) {
+      window.requestAnimationFrame(motionDetectionService._draw);
+    }
+  },
+  stop: function () {
+    this.active = false;
   }
 };
-
-//function draw() {
-//  canvas.width = video.videoWidth /20;
-//  canvas.height = video.videoHeight /20;
-//  const context = canvas.getContext('2d');
-//  context.drawImage(video, 0, 0, canvas.width, canvas.height);
-//  try {
-//    let imageData = context.getImageData( 0, 0, video.videoWidth /20, video.videoHeight /20)
-//    //console.time('hello');
-//    //for(var a = 100000; a > 0; a--) {
-//    compareFrames(imageData);
-//    //}
-//    //console.timeEnd('hello');
-//
-//  } catch(e) {
-//    console.log(e)
-//  }
-//
-//
-//  window.requestAnimationFrame(draw);
-//}
 
 let lastFrame = [];
 
@@ -53,8 +41,8 @@ function compareFrames(newImageData, callback) {
     for (let i = dataLength; i -= 4;) {
       if (hasChanges(data, lastFrame, i)) {
         let j = i / 4;
-        let x = j % 32;
-        let y = (j - x) / 32;
+        let x = j % width;
+        let y = (j - x) / width;
         let l = rects.length;
         rects[l] = x * 10;
         rects[l + 1] = y * 10;
@@ -64,9 +52,6 @@ function compareFrames(newImageData, callback) {
     //j 768, i 3072
     if (rects.length) {
       callback(rects);
-
-
-
     }
   }
 
